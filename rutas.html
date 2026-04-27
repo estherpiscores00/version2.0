@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Rutas · Senderistas</title>
+
+  <!-- ============================================================
+       FUENTE — cámbiala aquí por cualquier Google Font sin serif:
+       Opciones recomendadas:
+         'Nunito'        → redondeada y muy legible
+         'Inter'         → moderna y neutra (la más usada en apps)
+         'DM Sans'       → limpia y compacta
+         'Outfit'        → geométrica y fresca
+         'Poppins'       → elegante y moderna
+       Cambia TANTO el @import como la variable --fuente
+  ============================================================ -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       VARIABLES DE DISEÑO — ajusta aquí sin tocar nada más
+    ============================================================ */
+    :root {
+      /* Fuente principal (cámbiala para probar otras) */
+      --fuente: 'Nunito', sans-serif;
+
+      /* Tamaños de texto — sube o baja para ajustar legibilidad */
+      --text-xs:   0.78rem;   /* etiquetas, fechas, meta */
+      --text-sm:   0.88rem;   /* texto secundario, chips */
+      --text-base: 1rem;      /* texto normal de tarjetas */
+      --text-lg:   1.1rem;    /* nombres de rutas */
+      --text-xl:   1.25rem;   /* títulos de ranking */
+      --text-2xl:  1.5rem;    /* modal título */
+
+      /* Colores */
+      --stone:  #1a1a18;
+      --rock:   #2e2d2a;
+      --mist:   #b8c4be;
+      --snow:   #f0ede8;
+      --peak:   #c8a96e;
+      --accent: #e05c2a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--fuente);
+      background: #f4f2ee;
+      color: var(--stone);
+      overflow: hidden;
+    }
+
+    /* ── LAYOUT ── */
+    .app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--stone);
+      padding: 0 16px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 8px; }
+
+    .header-title {
+      font-family: var(--fuente);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--snow);
+    }
+
+    .header-title span { color: var(--peak); }
+
+    .btn-back {
+      padding: 6px 13px;
+      background: transparent;
+      border: 1px solid var(--peak);
+      border-radius: 20px;
+      color: var(--peak);
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-back:active { background: var(--peak); color: var(--stone); }
+
+    /* ── TABS ── */
+    .tabs { display: flex; background: var(--rock); flex-shrink: 0; }
+
+    .tab {
+      flex: 1;
+      padding: 12px 0;
+      text-align: center;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--mist);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .tab.active { color: var(--peak); border-bottom-color: var(--peak); }
+
+    /* ── VISTAS ── */
+    .view { flex: 1; overflow: hidden; display: none; flex-direction: column; min-height: 0; }
+    .view.active { display: flex; }
+
+    /* ── FILTRO ── */
+    .filter-bar {
+      background: white;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e8e4de;
+      flex-shrink: 0;
+    }
+
+    .filter-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 7px;
+    }
+
+    .filter-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      background: #f0ede8;
+      color: #555;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+    }
+
+    .chip.active { background: var(--stone); color: var(--peak); border-color: var(--stone); }
+
+    /* ── CABECERA PARTICIPANTE ── */
+    #participante-header {
+      display: none;
+      background: var(--stone);
+      color: var(--snow);
+      padding: 10px 16px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+
+    .ph-rank {
+      font-size: var(--text-xs);
+      color: var(--peak);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .ph-name {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--peak);
+      margin-bottom: 4px;
+    }
+
+    .ph-stats { display: flex; gap: 16px; font-size: var(--text-sm); color: var(--mist); flex-wrap: wrap; }
+    .ph-stats span strong { color: var(--snow); font-weight: 700; }
+
+    /* ── LISTA RUTAS ── */
+    #rutas-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 12px 24px;   /* padding-bottom extra para que no quede cortada la última */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ── TARJETA RUTA ── */
+    .ruta-card {
+      background: white;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s;
+      border-left: 3px solid var(--peak);
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;   /* evita que las tarjetas se compriman */
+    }
+
+    .ruta-card:active { transform: scale(0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.13); }
+
+    .ruta-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .ruta-name {
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--stone);
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .ruta-fecha {
+      font-size: var(--text-xs);
+      color: #999;
+      white-space: nowrap;
+      padding-top: 3px;
+      font-weight: 600;
+    }
+
+    .ruta-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .ruta-meta {
+      display: flex;
+      gap: 10px;
+      font-size: var(--text-sm);
+      color: #666;
+      flex-wrap: wrap;
+    }
+
+    .ruta-meta span { display: flex; align-items: center; gap: 3px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.5);
+      align-items: flex-end;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-sheet {
+      position: relative;
+      width: 100%;
+      max-height: 88vh;
+      background: white;
+      border-radius: 16px 16px 0 0;
+      overflow-y: auto;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+
+    /* Aspa cerrar */
+    .modal-close-x {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: flex-end;
+      padding: 12px 14px 0;
+      background: white;
+      z-index: 10;
+    }
+
+    .btn-close-x {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f0ede8;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #666;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+
+    .btn-close-x:active { background: #e0dbd3; }
+
+    .modal-body { padding: 4px 18px 32px; }
+
+    .modal-temporada {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .modal-title {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      color: var(--stone);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .modal-stat {
+      background: #f7f5f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .modal-stat-label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 3px;
+      font-weight: 700;
+    }
+
+    .modal-stat-value {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--stone);
+    }
+
+    .modal-stat.full { grid-column: 1 / -1; }
+
+    .modal-comentario {
+      font-size: var(--text-base);
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      background: #f7f5f0;
+      border-radius: 8px;
+      border-left: 3px solid var(--peak);
+    }
+
+    .modal-foto {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .btn-wikiloc {
+      display: block;
+      text-align: center;
+      background: #84b404;
+      color: white;
+      padding: 13px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: var(--text-base);
+      margin-bottom: 10px;
+    }
+
+    .btn-close-modal {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #f0ede8;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--fuente);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+    }
+
+    /* ── RANKING ── */
+    #ranking-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 12px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .rank-card {
+      background: white;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .rank-card:active { transform: scale(0.98); }
+
+    .rank-pos {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ccc;
+      width: 34px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .rank-pos.gold   { color: #f0a500; }
+    .rank-pos.silver { color: #9e9e9e; }
+    .rank-pos.bronze { color: #a0522d; }
+
+    .rank-body { flex: 1; min-width: 0; }
+
+    .rank-name {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--stone);
+      margin-bottom: 5px;
+    }
+
+    .rank-stats {
+      display: flex;
+      gap: 12px;
+      font-size: var(--text-sm);
+      color: #666;
+      flex-wrap: wrap;
+    }
+
+    .rank-stats span strong { color: var(--stone); font-weight: 700; }
+
+    .rank-badge {
+      background: var(--stone);
+      color: var(--peak);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── VOTOS ── */
+    .votos-row { display: flex; gap: 6px; }
+
+    .btn-like, .btn-dislike {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 20px;
+      padding: 5px 11px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--fuente);
+      transition: background 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      border: 1px solid #e0dbd3;
+      background: #f7f5f0;
+      color: #888;
+    }
+
+    .btn-like:active    { transform: scale(0.9); background: #fff3e0; color: #e05c2a; border-color: #e05c2a; }
+    .btn-dislike:active { transform: scale(0.9); background: #fce4e4; color: #c0392b; border-color: #c0392b; }
+    .btn-like.voted-this    { background: #fff3e0; color: #e05c2a; border-color: #e05c2a; }
+    .btn-dislike.voted-this { background: #fce4e4; color: #c0392b; border-color: #c0392b; }
+    .btn-like.voted:not(.voted-this),
+    .btn-dislike.voted:not(.voted-this) { opacity: 0.4; }
+
+    /* Dislike oculto (código y BD intactos) */
+    .btn-dislike { display: none !important; }
+
+    .modal-votos {
+      margin-bottom: 14px;
+      background: #f7f5f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .modal-votos-label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .modal-votos .votos-row { gap: 10px; }
+
+    .modal-votos .btn-like,
+    .modal-votos .btn-dislike {
+      flex: 1;
+      justify-content: center;
+      padding: 10px 12px;
+      font-size: var(--text-base);
+      border-radius: 8px;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--stone);
+      color: var(--snow);
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      z-index: 3000;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── SIN RESULTADOS ── */
+    .empty-msg {
+      text-align: center;
+      color: #aaa;
+      font-size: var(--text-base);
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="header-left">
+      <span style="font-size:22px">🥾</span>
+      <span class="header-title">Rutas <span>Senderistas</span></span>
+    </div>
+    <a href="index.html" class="btn-back">← Volver</a>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="rutas">📋 Rutas</div>
+    <div class="tab" data-tab="ranking">🏆 Ranking</div>
+  </div>
+
+  <!-- VISTA RUTAS -->
+  <div class="view active" id="view-rutas">
+    <div class="filter-bar">
+      <div class="filter-label">Filtrar por participante</div>
+      <div class="filter-scroll" id="chips-container"></div>
+    </div>
+    <div id="participante-header">
+      <div class="ph-rank" id="ph-rank"></div>
+      <div class="ph-name" id="ph-name"></div>
+      <div class="ph-stats" id="ph-stats"></div>
+    </div>
+    <div id="rutas-list"></div>
+  </div>
+
+  <!-- VISTA RANKING -->
+  <div class="view" id="view-ranking">
+    <div id="ranking-list"></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-sheet" id="modal-sheet">
+    <div class="modal-close-x">
+      <button class="btn-close-x" id="btn-close-x">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="rutas.js"></script>
+</body>
+</html>

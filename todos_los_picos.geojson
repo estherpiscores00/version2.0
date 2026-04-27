@@ -1,0 +1,1626 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9560669,
+          40.8500369
+        ]
+      },
+      "properties": {
+        "id_pico": 1,
+        "name_pico": "Peñalara",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2428.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Paco",
+          "Tino",
+          "Nacho Iglesias",
+          "Nacho Arribas"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9523288,
+          40.8551213
+        ]
+      },
+      "properties": {
+        "id_pico": 2,
+        "name_pico": "Risco de los Claveles",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2388.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.932879,
+          40.7994834
+        ]
+      },
+      "properties": {
+        "id_pico": 3,
+        "name_pico": "Cabeza de Hierro Mayor",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2381.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9379438,
+          40.796213
+        ]
+      },
+      "properties": {
+        "id_pico": 4,
+        "name_pico": "Cabeza de Hierro Menor",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2374.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9507349,
+          40.8598422
+        ]
+      },
+      "properties": {
+        "id_pico": 5,
+        "name_pico": "Risco de los Pájaros",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2334.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.946106,
+          40.834203
+        ]
+      },
+      "properties": {
+        "id_pico": 6,
+        "name_pico": "Dos Hermanas",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2285.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9625362,
+          40.792566
+        ]
+      },
+      "properties": {
+        "id_pico": 7,
+        "name_pico": "Cerro de Valdemartín",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2280.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9800077,
+          40.7850756
+        ]
+      },
+      "properties": {
+        "id_pico": 8,
+        "name_pico": "Bola del Mundo ",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2265.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8829477,
+          40.8058225
+        ]
+      },
+      "properties": {
+        "id_pico": 9,
+        "name_pico": "Asomate de Hoyos",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2242.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9115785,
+          40.8017926
+        ]
+      },
+      "properties": {
+        "id_pico": 10,
+        "name_pico": "Loma de Pandasco",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2238.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9686214,
+          40.7671348
+        ]
+      },
+      "properties": {
+        "id_pico": 11,
+        "name_pico": "La Maliciosa",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2227.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.845602,
+          40.982572
+        ]
+      },
+      "properties": {
+        "id_pico": 12,
+        "name_pico": "El Nevero",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2209.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9800359,
+          40.8355662
+        ]
+      },
+      "properties": {
+        "id_pico": 13,
+        "name_pico": "Peña Citores",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2182.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.86852180695698,
+          40.9714974248908
+        ]
+      },
+      "properties": {
+        "id_pico": 14,
+        "name_pico": "Peñacabra",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2165.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0712108,
+          40.8000302
+        ]
+      },
+      "properties": {
+        "id_pico": 15,
+        "name_pico": "Montón de Trigo",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2155.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9474111,
+          40.8735482
+        ]
+      },
+      "properties": {
+        "id_pico": 16,
+        "name_pico": "Cerro Claveles",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2138.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0333834,
+          40.781549
+        ]
+      },
+      "properties": {
+        "id_pico": 17,
+        "name_pico": "Siete Picos",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2136.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Carlos Grajal",
+          "Tino"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9514,
+          40.8939
+        ]
+      },
+      "properties": {
+        "id_pico": 18,
+        "name_pico": "Alto del Morete",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2131.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.53755,
+          41.1684
+        ]
+      },
+      "properties": {
+        "id_pico": 19,
+        "name_pico": "Peña Cebollera",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 2128.0,
+        "senderistas": [
+          "Agustín",
+          "Antonio",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8752159,
+          40.8094105
+        ]
+      },
+      "properties": {
+        "id_pico": 20,
+        "name_pico": "Loma de Bailanderos",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2126.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.96942,
+          40.7659
+        ]
+      },
+      "properties": {
+        "id_pico": 21,
+        "name_pico": "Peñotito (Maliciosa baja)",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama",
+        "elev": 2125.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8280694,
+          40.8153977
+        ]
+      },
+      "properties": {
+        "id_pico": 22,
+        "name_pico": "La Najarra",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2108.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Nacho Iglesias",
+          "Nacho Arribas",
+          "María José"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8756413,
+          40.7956873
+        ]
+      },
+      "properties": {
+        "id_pico": 23,
+        "name_pico": "Peña Lindera",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2107.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.77234820252805,
+          41.0203061024046
+        ]
+      },
+      "properties": {
+        "id_pico": 24,
+        "name_pico": "Peña del Buitre",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama",
+        "elev": 2105.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7657526,
+          41.0156736
+        ]
+      },
+      "properties": {
+        "id_pico": 25,
+        "name_pico": "Reajo Alto",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2102.0,
+        "senderistas": [
+          "Agustín",
+          "Antonio",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7790549,
+          41.0021552
+        ]
+      },
+      "properties": {
+        "id_pico": 26,
+        "name_pico": "Reajo Capón",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama",
+        "elev": 2090.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9435111,
+          40.9076415
+        ]
+      },
+      "properties": {
+        "id_pico": 27,
+        "name_pico": "El Reventón",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2078.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7553539,
+          41.027728
+        ]
+      },
+      "properties": {
+        "id_pico": 28,
+        "name_pico": "Lomo Gordo",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2077.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5374685,
+          41.1553862
+        ]
+      },
+      "properties": {
+        "id_pico": 29,
+        "name_pico": "Cabeza del Tempraniego",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 2071.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8760408,
+          40.7934628
+        ]
+      },
+      "properties": {
+        "id_pico": 30,
+        "name_pico": "Alto de Matasanos",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2057.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5440518,
+          41.1372741
+        ]
+      },
+      "properties": {
+        "id_pico": 31,
+        "name_pico": "Coto de Montejo",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 2047.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2554163,
+          41.1045482
+        ]
+      },
+      "properties": {
+        "id_pico": 32,
+        "name_pico": "Ocejón",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 2040.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0701681,
+          40.7938581
+        ]
+      },
+      "properties": {
+        "id_pico": 33,
+        "name_pico": "Cerro Minguete",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2026.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Antonio"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8780975,
+          40.79034
+        ]
+      },
+      "properties": {
+        "id_pico": 34,
+        "name_pico": "Las Torres",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2009.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.98261,
+          40.65456
+        ]
+      },
+      "properties": {
+        "id_pico": 35,
+        "name_pico": "Peña del Águila",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2004.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0784436,
+          40.788879
+        ]
+      },
+      "properties": {
+        "id_pico": 36,
+        "name_pico": "Peña Bercial",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 2002.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.052978,
+          40.790748
+        ]
+      },
+      "properties": {
+        "id_pico": 37,
+        "name_pico": "Cerro Ventoso",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1965.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.1006627,
+          40.7479765
+        ]
+      },
+      "properties": {
+        "id_pico": 38,
+        "name_pico": "La Peñota",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1945.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.781707,
+          40.83396
+        ]
+      },
+      "properties": {
+        "id_pico": 39,
+        "name_pico": "Perdiguera",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1862.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Maria Jesús",
+          "Paco",
+          "Carlos Grajal",
+          "Nacho Iglesias",
+          "Nacho Arribas"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4132124,
+          41.0185646
+        ]
+      },
+      "properties": {
+        "id_pico": 40,
+        "name_pico": "Pico de la Tornera",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1865.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5629,
+          41.11417
+        ]
+      },
+      "properties": {
+        "id_pico": 41,
+        "name_pico": "Cebollera Nueva",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 1834.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.67967,
+          41.08444
+        ]
+      },
+      "properties": {
+        "id_pico": 42,
+        "name_pico": "Peña Quemada",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1833.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4814918,
+          41.0107955
+        ]
+      },
+      "properties": {
+        "id_pico": 43,
+        "name_pico": "Peña de la Cabra",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1831.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.67509192830674,
+          40.8867948994897
+        ]
+      },
+      "properties": {
+        "id_pico": 44,
+        "name_pico": "Peña Negra",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1831.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Maria Jesús",
+          "Paco",
+          "Tino",
+          "Nacho Iglesias",
+          "Nacho Arribas",
+          "María José"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.6958254,
+          40.8806736
+        ]
+      },
+      "properties": {
+        "id_pico": 45,
+        "name_pico": "Mondalindo",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1830.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Miguel"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.46874,
+          41.045521
+        ]
+      },
+      "properties": {
+        "id_pico": 46,
+        "name_pico": "El Contadero",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 1789.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Miguel"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2445186,
+          41.1403019
+        ]
+      },
+      "properties": {
+        "id_pico": 46,
+        "name_pico": "El Porrejón",
+        "name_sierra": "Sistema Central (Sierra de Ayllón)",
+        "elev": 1824.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Miguel",
+          "Maria Jesús",
+          "Tino"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.160251,
+          40.689874
+        ]
+      },
+      "properties": {
+        "id_pico": 47,
+        "name_pico": "Cabeza Lijar",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1822.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Damián",
+          "Maria Jesús",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.389253,
+          41.001141
+        ]
+      },
+      "properties": {
+        "id_pico": 48,
+        "name_pico": "Pico de la Centenera",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1809.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.796335,
+          40.8467431
+        ]
+      },
+      "properties": {
+        "id_pico": 49,
+        "name_pico": "Pico Genciana",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1798.0,
+        "senderistas": [
+          "Agustín",
+          "Miguel",
+          "Maria Jesús",
+          "Carlos Grajal",
+          "Nacho Iglesias",
+          "Nacho Arribas"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.1715555,
+          40.6807029
+        ]
+      },
+      "properties": {
+        "id_pico": 50,
+        "name_pico": "Cerro de la Salamanca",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1785.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Damián",
+          "Maria Jesús",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.147666,
+          40.617164
+        ]
+      },
+      "properties": {
+        "id_pico": 51,
+        "name_pico": "Monte Abantos",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1753.0,
+        "senderistas": [
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Maria Jesús",
+          "Paco",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.865302,
+          40.750516
+        ]
+      },
+      "properties": {
+        "id_pico": 52,
+        "name_pico": "El Yelmo",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1717.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9954969,
+          40.6856077
+        ]
+      },
+      "properties": {
+        "id_pico": 53,
+        "name_pico": "Cabeza Mediana",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1701.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Antonio",
+          "Damián",
+          "Miguel",
+          "Maria Jesús",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7770645,
+          40.9222343
+        ]
+      },
+      "properties": {
+        "id_pico": 54,
+        "name_pico": "Cachiporrilla",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1677.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.6993424,
+          40.8721678
+        ]
+      },
+      "properties": {
+        "id_pico": 55,
+        "name_pico": "Cancho de Mondalindo",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1651.0,
+        "senderistas": [
+          "Agustín",
+          "Antonio",
+          "Miguel"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7288433,
+          40.8465957
+        ]
+      },
+      "properties": {
+        "id_pico": 56,
+        "name_pico": "Cabeza Arcón",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1560.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Damián",
+          "Miguel"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.639345,
+          40.87556
+        ]
+      },
+      "properties": {
+        "id_pico": 57,
+        "name_pico": "Cancho Gordo",
+        "name_sierra": "Sierra de La Cabrera",
+        "elev": 1558.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Antonio",
+          "Damián",
+          "Miguel",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9160323,
+          40.7414644
+        ]
+      },
+      "properties": {
+        "id_pico": 58,
+        "name_pico": "Collado de Valdehalcones",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1542.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Damián",
+          "Miguel",
+          "Maria Jesús",
+          "Paco",
+          "Carlos Grajal",
+          "Tino",
+          "Nacho Iglesias",
+          "Nacho Arribas",
+          "María José"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.139047,
+          40.710325
+        ]
+      },
+      "properties": {
+        "id_pico": 59,
+        "name_pico": "Alto del León",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1511.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Damián",
+          "Maria Jesús",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.754633,
+          40.960653
+        ]
+      },
+      "properties": {
+        "id_pico": 60,
+        "name_pico": "Chaparral",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1472.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Gloria",
+          "Pilar",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.1741,
+          40.561114527378
+        ]
+      },
+      "properties": {
+        "id_pico": 61,
+        "name_pico": "La Machota",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1451.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Jose"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7667,
+          40.7333
+        ]
+      },
+      "properties": {
+        "id_pico": 62,
+        "name_pico": "Cerro de San Pedro",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1424.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Maria Jesús"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.1601,
+          40.549284
+        ]
+      },
+      "properties": {
+        "id_pico": 63,
+        "name_pico": "Machota Menor",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1409.0,
+        "senderistas": [
+          "Agustín",
+          "Miguel",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.9177326,
+          40.63849
+        ]
+      },
+      "properties": {
+        "id_pico": 64,
+        "name_pico": "El Estepar",
+        "name_sierra": "Sistema Central (Sierra de Hoyo)",
+        "elev": 1404.0,
+        "senderistas": [
+          "nan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4701012,
+          40.9535387
+        ]
+      },
+      "properties": {
+        "id_pico": 65,
+        "name_pico": "Cabeza Antón",
+        "name_sierra": "Sistema Central ",
+        "elev": 1397.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Miguel",
+          "Maria Jesús",
+          "Carlos Grajal",
+          "Tino",
+          "Nacho Iglesias",
+          "Nacho Arribas"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8929834,
+          40.7606188
+        ]
+      },
+      "properties": {
+        "id_pico": 66,
+        "name_pico": "Cancho de los Muertos",
+        "name_sierra": "Sistema Central (Sierra de Hoyo)",
+        "elev": 1386.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Carlos Grajal"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.6083443,
+          40.8790651
+        ]
+      },
+      "properties": {
+        "id_pico": 67,
+        "name_pico": "Pico de la Miel",
+        "name_sierra": "nan",
+        "elev": 1384.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Tino",
+          "María José"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.90908,
+          40.74147
+        ]
+      },
+      "properties": {
+        "id_pico": 68,
+        "name_pico": "Los Porrones",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1376.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Jose",
+          "Gloria"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4513085,
+          40.9421444
+        ]
+      },
+      "properties": {
+        "id_pico": 69,
+        "name_pico": "Pico Torrejón",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1292.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Miguel",
+          "Paco"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4803403,
+          40.8961735
+        ]
+      },
+      "properties": {
+        "id_pico": 70,
+        "name_pico": "Cancho de la Cabeza",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1264.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.25171,
+          40.4495
+        ]
+      },
+      "properties": {
+        "id_pico": 71,
+        "name_pico": "La Almenara",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1213.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Miguel"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5132119,
+          40.8941846
+        ]
+      },
+      "properties": {
+        "id_pico": 72,
+        "name_pico": "Cabeza de Cerugea",
+        "name_sierra": "Sistema Central (Sierra del Rincón)",
+        "elev": 1220.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1081505,
+          40.8934
+        ]
+      },
+      "properties": {
+        "id_pico": 73,
+        "name_pico": "Peña de la Horca",
+        "name_sierra": "Sistema Central (Sierra de Guadarrama)",
+        "elev": 1188.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Antonio",
+          "Damián"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5641,
+          40.4815
+        ]
+      },
+      "properties": {
+        "id_pico": 74,
+        "name_pico": "Ecce Homo",
+        "name_sierra": "Sistema Central (Alcalá)",
+        "elev": 879.0,
+        "senderistas": [
+          "Carlos Mateo",
+          "Agustín",
+          "Jose"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.393189,
+          40.46196
+        ]
+      },
+      "properties": {
+        "id_pico": 75,
+        "name_pico": "Cerro del Viso",
+        "name_sierra": "Sistema Central (Alcalá)",
+        "elev": 787.0,
+        "senderistas": [
+          "Agustín",
+          "Damián",
+          "Miguel",
+          "Paco",
+          "Carlos Grajal"
+        ]
+      }
+    }
+  ]
+}

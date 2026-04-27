@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Estadísticas · Senderistas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --fuente: 'Nunito', sans-serif;
+      --stone:  #1a1a18;
+      --peak:   #c8a96e;
+      --snow:   #f0ede8;
+      --mist:   #b8c4be;
+      --bg:     #f2f0ec;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--fuente);
+      background: var(--bg);
+      color: var(--stone);
+      overflow: hidden;
+    }
+
+    .app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--stone);
+      padding: 0 16px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 8px; }
+
+    .header-title { font-size: 1.1rem; font-weight: 800; color: var(--snow); }
+    .header-title span { color: var(--peak); }
+
+    .btn-back {
+      padding: 6px 13px;
+      background: transparent;
+      border: 1px solid var(--peak);
+      border-radius: 20px;
+      color: var(--peak);
+      font-family: var(--fuente);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-back:active { background: var(--peak); color: var(--stone); }
+
+    /* ── SCROLL HORIZONTAL ── */
+    .cards-scroll {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      align-items: stretch;
+    }
+    .cards-scroll::-webkit-scrollbar { display: none; }
+
+    /* ── PASTILLA ── */
+    .stat-card {
+      flex-shrink: 0;
+      width: calc(100vw - 48px);
+      max-width: 360px;
+      background: white;
+      border-radius: 22px;
+      padding: 20px 18px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ── CABECERA CARD ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-icon {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--stone);
+      line-height: 1.2;
+      flex: 1;
+    }
+
+    /* Resumen */
+    .card-summary {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .summary-value { font-size: 2.2rem; font-weight: 900; line-height: 1; }
+    .summary-unit  { font-size: 0.8rem; font-weight: 600; color: #aaa; }
+
+    /* Gráfico */
+    .chart-wrap {
+      flex: 1;
+      position: relative;
+      min-height: 155px;
+    }
+
+    canvas { width: 100% !important; height: 100% !important; }
+
+    /* ── COLORES POR CARD ── */
+    .c1 .summary-value { color: #f0a500; }
+    .c1 .card-icon     { background: rgba(240,165,0,0.1); }
+
+    .c2 .summary-value { color: #e05c2a; }
+    .c2 .card-icon     { background: rgba(224,92,42,0.1); }
+
+    .c3 .summary-value { color: #1a7fc1; }
+    .c3 .card-icon     { background: rgba(26,127,193,0.1); }
+
+    .c4 .summary-value { color: #3a7d5a; }
+    .c4 .card-icon     { background: rgba(58,125,90,0.1); }
+
+    .c5 .summary-value { color: #c8a96e; }
+    .c5 .card-icon     { background: rgba(200,169,110,0.12); }
+
+    /* ── MEDALLERO ── */
+    #card-medallero {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 14px;
+    }
+
+    #fireworks-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 22px;
+    }
+
+    #card-medallero .card-header,
+    #card-medallero .podium-chips-wrap,
+    #card-medallero #podium-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .podium-temporada {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #aaa;
+      padding: 2px 0 4px;
+    }
+
+    /* Pódium arriba */
+    .podium-stage {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+      padding: 4px 0 8px;
+    }
+
+    .podium-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .podium-medal  { font-size: 1.5rem; line-height: 1; }
+    .podium-name   { font-size: 0.7rem; font-weight: 800; color: var(--stone); text-align: center; line-height: 1.2; }
+    .podium-count  { font-size: 0.68rem; font-weight: 700; }
+
+    .podium-bar {
+      width: 100%;
+      border-radius: 6px 6px 3px 3px;
+      border: 2px solid;
+    }
+
+    /* Diploma (4º, 5º, 6º) */
+    .diploma-section {
+      border-top: 1px solid #f0ede8;
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .diploma-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 2px;
+    }
+
+    .diploma-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 8px;
+      background: #faf9f7;
+      border-radius: 8px;
+    }
+
+    .diploma-pos  { font-size: 0.75rem; font-weight: 900; color: #ccc; width: 18px; text-align: center; }
+    .diploma-name { flex: 1; font-size: 0.82rem; font-weight: 700; color: var(--stone); }
+    .diploma-n    { font-size: 0.75rem; font-weight: 700; color: #999; }
+    .diploma-icon { font-size: 0.9rem; }
+
+    /* Resto de participantes */
+    .resto-section {
+      border-top: 1px solid #f0ede8;
+      padding-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow-y: auto;
+      max-height: 110px;
+    }
+
+    .resto-section::-webkit-scrollbar { width: 3px; }
+    .resto-section::-webkit-scrollbar-thumb { background: #eee; border-radius: 2px; }
+
+    .resto-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ccc;
+      margin-bottom: 2px;
+    }
+
+    .resto-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 8px;
+    }
+
+    .resto-pos  { font-size: 0.7rem; font-weight: 800; color: #ddd; width: 18px; text-align: center; }
+    .resto-name { flex: 1; font-size: 0.78rem; font-weight: 600; color: #888; }
+    .resto-n    { font-size: 0.72rem; font-weight: 700; color: #bbb; }
+
+    /* ── PÓDIUM CHIPS ── */
+    .podium-chips-wrap { overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .podium-chips-wrap::-webkit-scrollbar { display: none; }
+
+    #podium-chips { display: flex; gap: 6px; width: max-content; }
+
+    .pod-chip {
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #f0ede8;
+      color: #888;
+      border: 1px solid #e0dbd3;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pod-chip.active { background: var(--stone); color: var(--peak); border-color: var(--stone); }
+
+    /* ── DOTS ── */
+    .dots {
+      display: flex; justify-content: center; gap: 6px;
+      padding: 8px 0 max(env(safe-area-inset-bottom,0px), 12px);
+      flex-shrink: 0;
+    }
+
+    .dot {
+      height: 6px; width: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      transition: width 0.2s, background 0.2s;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed; inset: 0; z-index: 999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      transition: opacity 0.3s;
+    }
+    #loader.oculto { opacity: 0; pointer-events: none; }
+    .loader-spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #ddd; border-top-color: var(--peak);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    .loader-txt { font-size: 0.82rem; font-weight: 600; color: #aaa; }
+    /* ── SCROLL CON RUEDA RATÓN (escritorio) ── */
+    .cards-scroll { cursor: grab; }
+    .cards-scroll.grabbing { cursor: grabbing; }
+
+    /* ── FUEGOS por encima de todo en la card ── */
+    #fireworks-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none;
+      z-index: 10;
+      border-radius: 22px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-spinner"></div>
+  <span class="loader-txt">Calculando estadísticas…</span>
+</div>
+
+<div class="app">
+
+  <header>
+    <div class="header-left">
+      <span style="font-size:20px">📊</span>
+      <span class="header-title">Esta<span>dísticas</span></span>
+    </div>
+    <a href="index.html" class="btn-back">← Volver</a>
+  </header>
+
+  <div class="cards-scroll" id="cards-scroll">
+
+    <!-- CARD 1: MEDALLERO (primera) -->
+    <div class="stat-card c1" id="card-medallero">
+      <canvas id="fireworks-canvas"></canvas>
+      <div class="card-header" style="position:relative;z-index:1">
+        <div class="card-title">Medallero</div>
+        <div class="card-icon">🏆</div>
+      </div>
+      <div id="podium-container" style="position:relative;z-index:1;flex:1;overflow-y:auto"></div>
+      <div class="podium-chips-wrap" style="position:relative;z-index:1">
+        <div id="podium-chips"></div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="stat-card c2">
+      <div class="card-header">
+        <div class="card-title">Rutas por temporada</div>
+        <div class="card-icon">🥾</div>
+      </div>
+      <div class="card-summary">
+        <span class="summary-value" id="sum1">—</span>
+        <span class="summary-unit">rutas totales</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="stat-card c3">
+      <div class="card-header">
+        <div class="card-title">Kilómetros por temporada</div>
+        <div class="card-icon">📏</div>
+      </div>
+      <div class="card-summary">
+        <span class="summary-value" id="sum2">—</span>
+        <span class="summary-unit">km totales</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="stat-card c4">
+      <div class="card-header">
+        <div class="card-title">Media de participantes</div>
+        <div class="card-icon">👥</div>
+      </div>
+      <div class="card-summary">
+        <span class="summary-value" id="sum3">—</span>
+        <span class="summary-unit">media global por ruta</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="stat-card c5">
+      <div class="card-header">
+        <div class="card-title">Desnivel acumulado</div>
+        <div class="card-icon">⛰️</div>
+      </div>
+      <div class="card-summary">
+        <span class="summary-value" id="sum4">—</span>
+        <span class="summary-unit">m totales</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chart4"></canvas></div>
+    </div>
+
+  </div>
+
+  <!-- DOTS -->
+  <div class="dots" id="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="estad.js"></script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Senderistas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --fuente:  'Nunito', sans-serif;
+      --stone:   #1a1a18;
+      --rock:    #2e2d2a;
+      --peak:    #c8a96e;
+      --accent:  #e05c2a;
+      --snow:    #f0ede8;
+      --mist:    #b8c4be;
+      --bg:      #f2f0ec;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: var(--fuente);
+      background: var(--bg);
+      color: var(--stone);
+    }
+
+    /* ── LAYOUT ── */
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .app-header {
+      background: var(--stone);
+      padding: max(env(safe-area-inset-top, 0px), 18px) 20px 14px;
+      flex-shrink: 0;
+    }
+
+    .app-header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .app-greeting {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--peak);
+      margin-bottom: 3px;
+    }
+
+    .app-title {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .app-sub {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    .app-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ── CHIPS CATEGORÍA ── */
+    .chips-bar {
+      background: var(--stone);
+      padding: 0 20px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .chips-bar::-webkit-scrollbar { display: none; }
+
+    .cat-chip {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.07);
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .cat-chip.active {
+      background: var(--peak);
+      border-color: var(--peak);
+      color: var(--stone);
+    }
+
+    /* ── SCROLL CONTENIDO ── */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 16px max(env(safe-area-inset-bottom, 0px), 20px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ── SECCIÓN ── */
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      padding: 0 2px;
+      margin-top: 4px;
+    }
+
+    /* ── TARJETA GRANDE (featured) ── */
+    .card-featured {
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      min-height: 140px;
+      background: var(--stone);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.13);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s;
+    }
+
+    .card-featured:active { transform: scale(0.98); }
+
+    .card-featured-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+    }
+
+    .card-featured-body {
+      position: relative;
+      z-index: 1;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 140px;
+    }
+
+    .card-featured-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .card-featured-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .card-featured-desc {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+
+    .card-featured-arrow {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── TARJETAS PEQUEÑAS (2 columnas) ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .card-small {
+      border-radius: 14px;
+      padding: 16px 14px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-small:active { transform: scale(0.96); }
+
+    .card-small-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .card-small-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--stone);
+      line-height: 1.2;
+    }
+
+    .card-small-desc {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.3;
+      margin-top: -4px;
+    }
+
+    .card-small-arrow {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    /* Acento de color izquierdo en cards pequeñas */
+    .card-small::before {
+      content: '';
+      position: absolute;
+      top: 16px; bottom: 16px; left: 0;
+      width: 3px;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .card-small.c-rutas::before    { background: var(--accent); }
+    .card-small.c-picos::before    { background: #1a7fc1; }
+    .card-small.c-ranking::before  { background: #f0a500; }
+    .card-small.c-estad::before    { background: #3a7d5a; }
+
+    /* ── TARJETA LISTA (row) ── */
+    .card-row {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s;
+    }
+
+    .card-row:active { transform: scale(0.98); }
+
+    .card-row-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+
+    .card-row-body { flex: 1; min-width: 0; }
+
+    .card-row-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--stone);
+      margin-bottom: 2px;
+    }
+
+    .card-row-desc {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.3;
+    }
+
+    .card-row-arrow {
+      font-size: 1.2rem;
+      color: #ccc;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer-note {
+      text-align: center;
+      font-size: 0.62rem;
+      color: #bbb;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 0 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="app-header-top">
+      <div>
+        <div class="app-greeting">Senderismo</div>
+        <div class="app-title">Senderistas</div>
+        <div class="app-sub">Comunidad de Madrid y alrededores</div>
+      </div>
+      <div class="app-avatar">🥾</div>
+    </div>
+  </div>
+
+  <!-- CHIPS -->
+  <div class="chips-bar">
+    <div class="cat-chip active">🔥 Todo</div>
+    <div class="cat-chip">🗺️ Mapas</div>
+    <div class="cat-chip">⛰️ Picos</div>
+    <div class="cat-chip">📋 Rutas</div>
+    <div class="cat-chip">📊 Stats</div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+
+    <div class="section-label">Destacado</div>
+
+    <!-- Card grande: Rutas -->
+    <a href="rutas.html" class="card-featured">
+      <div class="card-featured-bg" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=70')"></div>
+      <div class="card-featured-body">
+        <div class="card-featured-icon">📋</div>
+        <div class="card-featured-title">Rutas</div>
+        <div class="card-featured-desc">Listado completo con likes</div>
+      </div>
+      <div class="card-featured-arrow">›</div>
+    </a>
+
+    <!--
+    <div class="section-label">Accesos rápidos</div>
+    -->
+    <!-- Grid 2 columnas -->
+   <!--
+    <div class="cards-grid">
+
+      <a href="rutas.html" class="card-small c-rutas">
+        <div class="card-small-icon">📋</div>
+        <div>
+          <div class="card-small-title">Todas las Rutas</div>
+          <div class="card-small-desc">Listado completo con likes</div>
+        </div>
+        <div class="card-small-arrow">›</div>
+      </a>
+
+      <a href="mapa_picos.html" class="card-small c-picos">
+        <div class="card-small-icon">⛰️</div>
+        <div>
+          <div class="card-small-title">Picos Hollados</div>
+          <div class="card-small-desc">Cumbres conquistadas</div>
+        </div>
+        <div class="card-small-arrow">›</div>
+      </a>
+
+      <a href="rutas.html#ranking" class="card-small c-ranking">
+        <div class="card-small-icon">🏆</div>
+        <div>
+          <div class="card-small-title">Ranking</div>
+          <div class="card-small-desc">Clasificación del grupo</div>
+        </div>
+        <div class="card-small-arrow">›</div>
+      </a>
+
+      <a href="estad.html" class="card-small c-estad">
+        <div class="card-small-icon">📊</div>
+        <div>
+          <div class="card-small-title">Estadísticas</div>
+          <div class="card-small-desc">Datos y gráficas</div>
+        </div>
+        <div class="card-small-arrow">›</div>
+      </a>
+
+    </div>
+  -->
+
+    <div class="section-label">Secciones</div>
+
+    <!-- Rows -->
+    <a href="rutas.html" class="card-row">
+      <div class="card-row-icon">📋</div>
+      <div class="card-row-body">
+        <div class="card-row-title">Todas las Rutas</div>
+        <div class="card-row-desc">Listado completo con likes</div>
+      </div>
+      <div class="card-row-arrow">›</div>
+    </a>
+
+    <a href="mapa_rutas.html" class="card-row">
+      <div class="card-row-icon">🗺️</div>
+      <div class="card-row-body">
+        <div class="card-row-title">Mapa de Rutas</div>
+        <div class="card-row-desc">Ver todas las rutas geolocalizadas en el mapa</div>
+      </div>
+      <div class="card-row-arrow">›</div>
+    </a>
+
+    <a href="mapa_picos.html" class="card-row">
+      <div class="card-row-icon">⛰️</div>
+      <div class="card-row-body">
+        <div class="card-row-title">Picos hollados</div>
+        <div class="card-row-desc">Ver todas las cumbres conquistadas</div>
+      </div>
+      <div class="card-row-arrow">›</div>
+    </a>
+
+    <a href="estad.html" class="card-row">
+      <div class="card-row-icon">📊</div>
+      <div class="card-row-body">
+        <div class="card-row-title">Estadísticas</div>
+        <div class="card-row-desc">Gráficas, totales y evolución por temporada</div>
+      </div>
+      <div class="card-row-arrow">›</div>
+    </a>
+
+    <div class="footer-note">Senderistas · Com. de Madrid</div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

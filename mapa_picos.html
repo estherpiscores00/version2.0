@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Picos · Senderistas</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- ============================================================
+       FUENTE — igual que rutas.html, cámbiala aquí
+  ============================================================ -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       VARIABLES — mismas que rutas.html
+    ============================================================ */
+    :root {
+      --fuente:    'Nunito', sans-serif;
+      --text-xs:   0.78rem;
+      --text-sm:   0.88rem;
+      --text-base: 1rem;
+      --text-lg:   1.1rem;
+      --text-xl:   1.25rem;
+
+      --stone:  #1a1a18;
+      --rock:   #2e2d2a;
+      --mist:   #b8c4be;
+      --snow:   #f0ede8;
+      --peak:   #c8a96e;
+      --sky:    #1a7fc1;
+      --accent: #e05c2a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: var(--fuente);
+      background: var(--stone);
+      color: var(--snow);
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body { display: flex; flex-direction: column; }
+
+    /* ── HEADER — igual que rutas.html ── */
+    header {
+      position: relative;
+      z-index: 1000;
+      background: var(--stone);
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+      padding: 0 16px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .logo-icon   { font-size: 22px; flex-shrink: 0; }
+
+    .header-title {
+      font-family: var(--fuente);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--snow);
+      white-space: nowrap;
+    }
+
+    .header-title span { color: var(--peak); }
+
+    .btn-back {
+      padding: 6px 13px;
+      background: transparent;
+      border: 1px solid var(--peak);
+      border-radius: 20px;
+      color: var(--peak);
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-back:active { background: var(--peak); color: var(--stone); }
+
+    /* ── MAPA ── */
+    #map { flex: 1; width: 100%; touch-action: pan-x pan-y; }
+
+    /* ── PANEL INFERIOR ── */
+    #control-panel {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 900;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 14px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.3s ease;
+    }
+
+    #control-panel.collapsed { transform: translateY(100%); }
+
+    /* Tirador */
+    #panel-toggle {
+      position: absolute;
+      top: -32px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 5px 20px 0;
+      cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+
+    .toggle-bar   { width: 32px; height: 3px; background: #aaa; border-radius: 2px; }
+    .toggle-label {
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: #555;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-bottom: 3px;
+    }
+
+    /* ── FILA FILTROS ── */
+    .filters-row { display: flex; gap: 12px; align-items: flex-start; }
+    .filter-block { flex: 1; min-width: 0; }
+
+    .panel-label {
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    /* Slider doble */
+    .slider-wrap {
+      position: relative; height: 32px;
+      display: flex; align-items: center;
+    }
+
+    .slider-track { position: absolute; width: 100%; height: 4px; background: #ddd; border-radius: 2px; }
+    .slider-range { position: absolute; height: 4px; background: var(--accent); border-radius: 2px; }
+
+    .slider-wrap input[type=range] {
+      position: absolute; width: 100%; height: 4px;
+      appearance: none; background: transparent;
+      pointer-events: none; outline: none;
+    }
+
+    .slider-wrap input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 22px; height: 22px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid white;
+      cursor: pointer; pointer-events: all;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .slider-values {
+      display: flex; justify-content: space-between;
+      margin-top: 6px;
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      color: #666;
+    }
+
+    .slider-values strong { color: #222; font-weight: 700; }
+
+    /* Filtro senderista */
+    .search-wrap { position: relative; }
+
+    #senderista-input {
+      width: 100%;
+      padding: 8px 30px 8px 10px;
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 8px;
+      color: #222;
+      font-family: var(--fuente);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #senderista-input:focus { border-color: var(--accent); }
+    #senderista-input::placeholder { color: #bbb; font-weight: 400; }
+
+    .search-clear {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: #aaa;
+      font-size: 1rem; cursor: pointer; padding: 0;
+      display: none; line-height: 1;
+    }
+
+    /* Autocompletado */
+    #autocomplete-list {
+      position: absolute;
+      bottom: calc(100% + 4px); left: 0; right: 0;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      max-height: 160px; overflow-y: auto;
+      z-index: 950; display: none;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.1);
+    }
+
+    #autocomplete-list::-webkit-scrollbar { width: 4px; }
+    #autocomplete-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+    .autocomplete-item {
+      padding: 10px 12px;
+      font-family: var(--fuente);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .autocomplete-item:last-child { border-bottom: none; }
+    .autocomplete-item:hover, .autocomplete-item:active {
+      background: rgba(224,92,42,0.07); color: var(--accent);
+    }
+
+    .autocomplete-count {
+      margin-left: auto;
+      font-size: var(--text-xs);
+      color: #999;
+      background: rgba(0,0,0,0.05);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    /* Stat picos visibles */
+    .stat-visible-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px;
+      font-family: var(--fuente);
+      font-size: var(--text-sm);
+      color: #666;
+      font-weight: 600;
+    }
+
+    .stat-visible-row strong {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* Badge filtro activo */
+    #filter-badge {
+      display: none;
+      position: absolute; top: 60px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 900;
+      background: var(--stone);
+      color: var(--peak);
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Sin datos */
+    #no-data {
+      display: none;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 800;
+      background: rgba(26,26,24,0.92);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 24px;
+      text-align: center;
+      font-family: var(--fuente);
+      font-size: var(--text-sm);
+      color: var(--mist);
+      pointer-events: none;
+    }
+
+    /* ── POPUP ── */
+    .leaflet-popup-content-wrapper {
+      background: white !important;
+      border: none !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18) !important;
+      color: var(--stone) !important;
+    }
+
+    .leaflet-popup-tip { background: white !important; }
+
+    .leaflet-popup-content {
+      margin: 0 !important;
+      font-family: var(--fuente) !important;
+    }
+
+    .popup-inner { padding: 14px 16px; min-width: 200px; max-width: 280px; }
+
+    .popup-sierra {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .popup-name {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--stone);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .popup-elev {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .popup-divider { height: 1px; background: #eee; margin-bottom: 10px; }
+
+    .popup-senderistas-title {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .popup-senderistas-count {
+      font-size: var(--text-base);
+      font-weight: 800;
+      color: var(--stone);
+      margin-bottom: 6px;
+    }
+
+    .popup-senderistas-list {
+      max-height: 100px; overflow-y: auto;
+      display: flex; flex-wrap: wrap; gap: 4px;
+    }
+
+    .popup-senderistas-list::-webkit-scrollbar { width: 3px; }
+    .popup-senderistas-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+    .senderista-tag {
+      font-family: var(--fuente);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      background: #f0f4f8;
+      border: 1px solid #dde5ee;
+      color: var(--sky);
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .senderista-tag.highlight {
+      background: rgba(200,169,110,0.15);
+      border-color: var(--peak);
+      color: #8a6a20;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <span class="logo-icon">⛰️</span>
+      <span class="header-title"><span>Picos</span></span>
+    </div>
+    <a href="index.html" class="btn-back">← Volver</a>
+  </header>
+
+  <div id="filter-badge"></div>
+  <div id="map"></div>
+  <div id="no-data">No hay picos con los filtros actuales.</div>
+
+  <div id="control-panel">
+    <div id="panel-toggle">
+      <div class="toggle-bar"></div>
+      <div class="toggle-label" id="toggle-label">Filtros</div>
+    </div>
+
+    <div class="filters-row">
+
+      <div class="filter-block">
+        <div class="panel-label">Elevación</div>
+        <div class="slider-wrap">
+          <div class="slider-track"></div>
+          <div class="slider-range" id="slider-range"></div>
+          <input type="range" id="slider-min" min="0" max="2500" value="0" step="10"/>
+          <input type="range" id="slider-max" min="0" max="2500" value="2500" step="10"/>
+        </div>
+        <div class="slider-values">
+          <span><strong id="val-min">0</strong> m</span>
+          <span><strong id="val-max">2500</strong> m</span>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="panel-label">Senderista</div>
+        <div class="search-wrap">
+          <input type="text" id="senderista-input" placeholder="Buscar nombre…"
+                 autocomplete="off" autocorrect="off" spellcheck="false"/>
+          <button class="search-clear" id="search-clear">✕</button>
+          <div id="autocomplete-list"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stat-visible-row">
+      <strong id="stat-visible">–</strong> picos visibles
+    </div>
+  </div>
+
+  <script src="mapa_picos.js" defer></script>
+</body>
+</html>
