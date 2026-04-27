@@ -18,7 +18,7 @@ const topLabelsPlugin = {
         ctx.save();
         ctx.translate(el.x, el.y - 4);
         ctx.rotate((angulo * Math.PI) / 180);
-        ctx.font = `700 12px ${FONT}`;
+        ctx.font = `700 9px ${FONT}`;
         ctx.fillStyle    = '#555';
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'bottom';
@@ -182,14 +182,20 @@ function renderMedallero(podiums, temporadasDesc, tempActiva) {
   // Lanzar fuegos al inicio (tras un pequeño delay para que el DOM esté pintado)
   setTimeout(() => lanzarFuegos(), 400);
 
-  // Volver a lanzar cada vez que la card sea visible
-  const cardEl = document.getElementById('card-medallero');
-  const scroll = document.getElementById('cards-scroll');
+  // Mostrar/ocultar chips-bar y relanzar fuegos segun visibilidad de la card
+  const cardEl   = document.getElementById('card-medallero');
+  const chipsBar = document.getElementById('chips-bar');
+  const scroll   = document.getElementById('cards-scroll');
+
+  // La card medallero es la primera, mostrar chips-bar de inicio
+  chipsBar.style.display = 'block';
+
   let fuegoLanzado = false;
   scroll.addEventListener('scroll', () => {
     const cardRect   = cardEl.getBoundingClientRect();
     const scrollRect = scroll.getBoundingClientRect();
     const visible    = cardRect.left < scrollRect.right - 40 && cardRect.right > scrollRect.left + 40;
+    chipsBar.style.display = visible ? 'block' : 'none';
     if (visible && !fuegoLanzado) { fuegoLanzado = true; lanzarFuegos(); }
     if (!visible) fuegoLanzado = false;
   }, { passive: true });

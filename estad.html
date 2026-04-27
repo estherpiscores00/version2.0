@@ -152,8 +152,8 @@
     /* ── MEDALLERO ── */
     #card-medallero {
       position: relative;
-      overflow: visible;
-      padding-bottom: 14px;
+      overflow: hidden;
+      padding-bottom: 8px;
     }
 
     #fireworks-canvas {
@@ -200,8 +200,8 @@
       gap: 3px;
     }
 
-    .podium-medal  { font-size: 2.0rem; line-height: 1; }
-    .podium-name   { font-size: 1rem; font-weight: 800; color: var(--stone); text-align: center; line-height: 1.2; }
+    .podium-medal  { font-size: 1.7rem; line-height: 1; }
+    .podium-name   { font-size: 0.82rem; font-weight: 800; color: var(--stone); text-align: center; line-height: 1.2; }
     .podium-count  { font-size: 0.78rem; font-weight: 700; }
 
     .podium-bar {
@@ -239,7 +239,7 @@
 
     .diploma-pos  { font-size: 0.82rem; font-weight: 900; color: #ccc; width: 20px; text-align: center; }
     .diploma-name { flex: 1; font-size: 0.9rem; font-weight: 700; color: var(--stone); }
-    .diploma-n    { font-size: 0.82rem; font-weight: 700; color: #2b2b2b; }
+    .diploma-n    { font-size: 0.82rem; font-weight: 700; color: #999; }
     .diploma-icon { font-size: 1rem; }
 
     /* Resto de participantes */
@@ -277,6 +277,7 @@
     .resto-n    { font-size: 0.78rem; font-weight: 700; color: #bbb; }
 
     /* ── PÓDIUM CHIPS ── */
+    #chips-bar { flex-shrink: 0; padding: 0 16px 4px; }
     .podium-chips-wrap { overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
     .podium-chips-wrap::-webkit-scrollbar { display: none; }
 
@@ -374,9 +375,6 @@
         <div class="card-icon">🏆</div>
       </div>
       <div id="podium-container" style="position:relative;z-index:1;flex:1;overflow-y:auto"></div>
-      <div class="podium-chips-wrap" style="position:relative;z-index:1">
-        <div id="podium-chips"></div>
-      </div>
     </div>
 
     <!-- CARD 2 -->
@@ -431,6 +429,13 @@
       <div class="chart-wrap"><canvas id="chart4"></canvas></div>
     </div>
 
+  </div>
+
+  <!-- CHIPS MEDALLERO (fuera de la card para no quedar cortados) -->
+  <div id="chips-bar" style="display:none; padding: 0 16px 4px; flex-shrink:0;">
+    <div class="podium-chips-wrap">
+      <div id="podium-chips"></div>
+    </div>
   </div>
 
   <!-- DOTS -->
