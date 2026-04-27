@@ -152,7 +152,7 @@
     /* ── MEDALLERO ── */
     #card-medallero {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       padding-bottom: 14px;
     }
 
@@ -200,9 +200,9 @@
       gap: 3px;
     }
 
-    .podium-medal  { font-size: 1.5rem; line-height: 1; }
-    .podium-name   { font-size: 0.7rem; font-weight: 800; color: var(--stone); text-align: center; line-height: 1.2; }
-    .podium-count  { font-size: 0.68rem; font-weight: 700; }
+    .podium-medal  { font-size: 1.7rem; line-height: 1; }
+    .podium-name   { font-size: 0.82rem; font-weight: 800; color: var(--stone); text-align: center; line-height: 1.2; }
+    .podium-count  { font-size: 0.78rem; font-weight: 700; }
 
     .podium-bar {
       width: 100%;
@@ -220,7 +220,7 @@
     }
 
     .diploma-label {
-      font-size: 0.58rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -237,10 +237,10 @@
       border-radius: 8px;
     }
 
-    .diploma-pos  { font-size: 0.75rem; font-weight: 900; color: #ccc; width: 18px; text-align: center; }
-    .diploma-name { flex: 1; font-size: 0.82rem; font-weight: 700; color: var(--stone); }
-    .diploma-n    { font-size: 0.75rem; font-weight: 700; color: #999; }
-    .diploma-icon { font-size: 0.9rem; }
+    .diploma-pos  { font-size: 0.82rem; font-weight: 900; color: #ccc; width: 20px; text-align: center; }
+    .diploma-name { flex: 1; font-size: 0.9rem; font-weight: 700; color: var(--stone); }
+    .diploma-n    { font-size: 0.82rem; font-weight: 700; color: #999; }
+    .diploma-icon { font-size: 1rem; }
 
     /* Resto de participantes */
     .resto-section {
@@ -250,14 +250,14 @@
       flex-direction: column;
       gap: 3px;
       overflow-y: auto;
-      max-height: 110px;
+      max-height: 160px;
     }
 
     .resto-section::-webkit-scrollbar { width: 3px; }
     .resto-section::-webkit-scrollbar-thumb { background: #eee; border-radius: 2px; }
 
     .resto-label {
-      font-size: 0.58rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -269,12 +269,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 3px 8px;
+      padding: 4px 8px;
     }
 
-    .resto-pos  { font-size: 0.7rem; font-weight: 800; color: #ddd; width: 18px; text-align: center; }
-    .resto-name { flex: 1; font-size: 0.78rem; font-weight: 600; color: #888; }
-    .resto-n    { font-size: 0.72rem; font-weight: 700; color: #bbb; }
+    .resto-pos  { font-size: 0.78rem; font-weight: 800; color: #ddd; width: 20px; text-align: center; }
+    .resto-name { flex: 1; font-size: 0.85rem; font-weight: 600; color: #888; }
+    .resto-n    { font-size: 0.78rem; font-weight: 700; color: #bbb; }
 
     /* ── PÓDIUM CHIPS ── */
     .podium-chips-wrap { overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
@@ -366,7 +366,9 @@
 
     <!-- CARD 1: MEDALLERO (primera) -->
     <div class="stat-card c1" id="card-medallero">
-      <canvas id="fireworks-canvas"></canvas>
+      <div id="fireworks-wrap" style="position:absolute;inset:0;border-radius:22px;overflow:hidden;pointer-events:none;z-index:0;">
+        <canvas id="fireworks-canvas"></canvas>
+      </div>
       <div class="card-header" style="position:relative;z-index:1">
         <div class="card-title">Medallero</div>
         <div class="card-icon">🏆</div>

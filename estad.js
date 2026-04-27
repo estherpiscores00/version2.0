@@ -175,6 +175,10 @@ function renderMedallero(podiums, temporadasDesc, tempActiva) {
 
   dibujarMedallero(podiums[tempActiva], container, tempActiva);
 
+  // Scroll al chip activo al inicio
+  const activeChip = chipsEl.querySelector('.pod-chip.active');
+  if (activeChip) setTimeout(() => activeChip.scrollIntoView({ inline: 'center', behavior: 'smooth' }), 100);
+
   // Lanzar fuegos al inicio (tras un pequeño delay para que el DOM esté pintado)
   setTimeout(() => lanzarFuegos(), 400);
 
