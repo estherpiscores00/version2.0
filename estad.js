@@ -18,7 +18,7 @@ const topLabelsPlugin = {
         ctx.save();
         ctx.translate(el.x, el.y - 4);
         ctx.rotate((angulo * Math.PI) / 180);
-        ctx.font = `700 9px ${FONT}`;
+        ctx.font = `700 12px ${FONT}`;
         ctx.fillStyle    = '#555';
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'bottom';
