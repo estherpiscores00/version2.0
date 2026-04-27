@@ -89,13 +89,13 @@
       gap: 10px;
     }
 
- /* ── CABECERA CARD ── */
+    /* ── CABECERA CARD ── */
     .card-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 8px;
-      flex-shrink: 0; /* NUEVO: Evita que la cabecera se aplaste */
+      flex-shrink: 0;
     }
 
     .card-icon {
@@ -149,28 +149,14 @@
     .c5 .summary-value { color: #c8a96e; }
     .c5 .card-icon     { background: rgba(200,169,110,0.12); }
 
-    /* ── MEDALLERO ── */
-    #card-medallero {
-      position: relative;
-      overflow: hidden;
-      padding-bottom: 8px;
-    }
-
-    #fireworks-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100% !important;
-      height: 100% !important;
-      pointer-events: none;
-      z-index: 0;
+    /* ── NUEVAS PASTILLAS PARA MEDALLERO ── */
+    .medallero-pill {
+      background: white;
       border-radius: 22px;
-    }
-
-    #card-medallero .card-header,
-    #card-medallero .podium-chips-wrap,
-    #card-medallero #podium-container {
-      position: relative;
-      z-index: 1;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
     }
 
     .podium-temporada {
@@ -212,29 +198,20 @@
 
     /* Diploma (4º, 5º, 6º) */
     .diploma-section {
-      border-top: 1px solid #f0ede8;
-      padding-top: 8px;
       display: flex;
       flex-direction: column;
       gap: 5px;
+      margin-bottom: 12px;
     }
 
     .diploma-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #bbb;
-      margin-bottom: 2px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb; margin-bottom: 2px;
     }
 
     .diploma-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 8px;
-      background: #faf9f7;
-      border-radius: 8px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 8px; background: #faf9f7; border-radius: 8px;
     }
 
     .diploma-pos  { font-size: 0.82rem; font-weight: 900; color: #ccc; width: 20px; text-align: center; }
@@ -244,25 +221,14 @@
 
     /* Resto de participantes */
     .resto-section {
-      border-top: 1px solid #f0ede8;
-      padding-top: 6px;
       display: flex;
       flex-direction: column;
       gap: 3px;
-      overflow-y: auto;
-      max-height: 160px;
     }
 
-    .resto-section::-webkit-scrollbar { width: 3px; }
-    .resto-section::-webkit-scrollbar-thumb { background: #eee; border-radius: 2px; }
-
     .resto-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ccc;
-      margin-bottom: 2px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #ccc; margin-bottom: 2px;
     }
 
     .resto-row {
@@ -277,7 +243,6 @@
     .resto-n    { font-size: 0.78rem; font-weight: 700; color: #bbb; }
 
     /* ── PÓDIUM CHIPS ── */
-    #chips-bar { flex-shrink: 0; padding: 0 16px 4px; }
     .podium-chips-wrap { overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
     .podium-chips-wrap::-webkit-scrollbar { display: none; }
 
@@ -328,6 +293,7 @@
       border-radius: 50%; animation: spin 0.7s linear infinite;
     }
     .loader-txt { font-size: 0.82rem; font-weight: 600; color: #aaa; }
+    
     /* ── SCROLL CON RUEDA RATÓN (escritorio) ── */
     .cards-scroll { cursor: grab; }
     .cards-scroll.grabbing { cursor: grabbing; }
@@ -366,15 +332,32 @@
   <div class="cards-scroll" id="cards-scroll">
 
     <!-- CARD 1: MEDALLERO (primera) -->
-    <div class="stat-card c1" id="card-medallero">
-      <div id="fireworks-wrap" style="position:absolute;inset:0;border-radius:22px;overflow:hidden;pointer-events:none;z-index:0;">
-        <canvas id="fireworks-canvas"></canvas>
+    <div class="stat-card c1" id="card-medallero" style="background: transparent; box-shadow: none; padding: 0; gap: 12px;">
+
+      <!-- Pastilla 1: Pódium (Fija) -->
+      <div class="medallero-pill" style="position:relative; flex-shrink:0; padding-bottom: 12px;">
+        <div id="fireworks-wrap" style="position:absolute;inset:0;border-radius:22px;overflow:hidden;pointer-events:none;z-index:0;">
+          <canvas id="fireworks-canvas"></canvas>
+        </div>
+        <div class="card-header" style="position:relative;z-index:1">
+          <div class="card-title">Medallero</div>
+          <div class="card-icon">🏆</div>
+        </div>
+        <div id="podium-top" style="position:relative;z-index:1;"></div>
       </div>
-      <div class="card-header" style="position:relative;z-index:1">
-        <div class="card-title">Medallero</div>
-        <div class="card-icon">🏆</div>
+
+      <!-- Pastilla 2: Resto y Diplomas (Scroll) -->
+      <div class="medallero-pill" style="flex:1; overflow-y:auto; padding: 16px;">
+        <div id="podium-rest"></div>
       </div>
-      <div id="podium-container" style="position:relative;z-index:1;flex:1;overflow-y:auto"></div>
+
+      <!-- Pastilla 3: Chips (Fija) -->
+      <div class="medallero-pill" style="flex-shrink:0; padding: 10px 16px;">
+        <div class="podium-chips-wrap">
+          <div id="podium-chips"></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- CARD 2 -->
@@ -429,13 +412,6 @@
       <div class="chart-wrap"><canvas id="chart4"></canvas></div>
     </div>
 
-  </div>
-
-  <!-- CHIPS MEDALLERO (fuera de la card para no quedar cortados) -->
-  <div id="chips-bar" style="display:none; padding: 0 16px 4px; flex-shrink:0;">
-    <div class="podium-chips-wrap">
-      <div id="podium-chips"></div>
-    </div>
   </div>
 
   <!-- DOTS -->

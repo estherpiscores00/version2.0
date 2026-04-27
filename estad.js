@@ -35,7 +35,7 @@ function baseOpts(grace = 0) {
   return {
     responsive: true,
     maintainAspectRatio: false,
-    layout: { padding: { top: 22, right: 6, left: 6, bottom: 0 } },
+    layout: { padding: { top: 22, right: 6, left: 6, bottom: 10 } },
     plugins: { legend: { display: false }, tooltip: { enabled: false } },
     scales: {
       x: {
@@ -138,7 +138,7 @@ function crearBarras(id, labels, data, color, labelFmt, grace = 2) {
 // ── LÍNEA ────────────────────────────────────────────────
 function crearLinea(id, labels, data, color, labelFmt, angulo = -45) {
   const opts = baseOpts(0);
-  opts.layout.padding = { top: 28, right: 14, left: 14, bottom: 0 };
+  opts.layout.padding = { top: 28, right: 14, left: 14, bottom: 10 };
   opts.scales.y.beginAtZero = true;
   new Chart(document.getElementById(id), {
     type: 'line',
@@ -156,8 +156,7 @@ function crearLinea(id, labels, data, color, labelFmt, angulo = -45) {
 
 // ── MEDALLERO ────────────────────────────────────────────
 function renderMedallero(podiums, temporadasDesc, tempActiva) {
-  const chipsEl   = document.getElementById('podium-chips');
-  const container = document.getElementById('podium-container');
+  const chipsEl = document.getElementById('podium-chips');
 
   chipsEl.innerHTML = temporadasDesc.map(t =>
     `<div class="pod-chip${t === tempActiva ? ' active' : ''}" data-t="${t}">${t}</div>`
@@ -168,43 +167,41 @@ function renderMedallero(podiums, temporadasDesc, tempActiva) {
       chipsEl.querySelectorAll('.pod-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       chip.scrollIntoView({ inline: 'center', behavior: 'smooth' });
-      dibujarMedallero(podiums[chip.dataset.t], container, chip.dataset.t);
+      dibujarMedallero(podiums[chip.dataset.t], chip.dataset.t);
       lanzarFuegos();
     });
   });
 
-  dibujarMedallero(podiums[tempActiva], container, tempActiva);
+  dibujarMedallero(podiums[tempActiva], tempActiva);
 
   // Scroll al chip activo al inicio
   const activeChip = chipsEl.querySelector('.pod-chip.active');
   if (activeChip) setTimeout(() => activeChip.scrollIntoView({ inline: 'center', behavior: 'smooth' }), 100);
 
-  // Lanzar fuegos al inicio (tras un pequeño delay para que el DOM esté pintado)
+  // Lanzar fuegos al inicio
   setTimeout(() => lanzarFuegos(), 400);
 
-  // Mostrar/ocultar chips-bar y relanzar fuegos segun visibilidad de la card
+  // Lanzar fuegos segun visibilidad de la card
   const cardEl   = document.getElementById('card-medallero');
-  const chipsBar = document.getElementById('chips-bar');
   const scroll   = document.getElementById('cards-scroll');
-
-  // La card medallero es la primera, mostrar chips-bar de inicio
-  chipsBar.style.display = 'block';
 
   let fuegoLanzado = false;
   scroll.addEventListener('scroll', () => {
     const cardRect   = cardEl.getBoundingClientRect();
     const scrollRect = scroll.getBoundingClientRect();
     const visible    = cardRect.left < scrollRect.right - 40 && cardRect.right > scrollRect.left + 40;
-    chipsBar.style.display = visible ? 'block' : 'none';
     if (visible && !fuegoLanzado) { fuegoLanzado = true; lanzarFuegos(); }
     if (!visible) fuegoLanzado = false;
   }, { passive: true });
 }
 
-function dibujarMedallero(ranking, container, temporada) {
+function dibujarMedallero(ranking, temporada) {
+  const topContainer = document.getElementById('podium-top');
+  const restContainer = document.getElementById('podium-rest');
+
   const top3    = ranking.slice(0, 3);
-  const diploma = ranking.slice(3, 6);
-  const resto   = ranking.slice(6);
+  const diploma = ranking.slice(3, 6); // 4º, 5º y 6º
+  const resto   = ranking.slice(6);    // Resto
 
   const medallas = ['🥇','🥈','🥉'];
   const colores  = ['#f0a500','#9e9e9e','#a0522d'];
@@ -213,10 +210,10 @@ function dibujarMedallero(ranking, container, temporada) {
 
   const tempHtml = temporada
     ? `<div class="podium-temporada">Temporada ${temporada}</div>`
-    : ''; // plata izq, oro centro, bronce der
+    : '';
 
-  // ── Pódium ──
-  const podHtml = `
+  // ── Pódium (Top 3) ──
+  topContainer.innerHTML = `
     ${tempHtml}
     <div class="podium-stage">
       ${orden.map(i => {
@@ -256,7 +253,7 @@ function dibujarMedallero(ranking, container, temporada) {
         </div>`).join('')}
     </div>` : '';
 
-  container.innerHTML = podHtml + diploHtml + restoHtml;
+  restContainer.innerHTML = diploHtml + restoHtml;
 }
 
 // ── FUEGOS ARTIFICIALES ───────────────────────────────────
@@ -267,16 +264,13 @@ function lanzarFuegos() {
   const card   = document.getElementById('card-medallero');
   const ctx    = canvas.getContext('2d');
 
-  // Cancelar animación anterior si la hubiera
   cancelAnimationFrame(fireworksFrame);
 
-  // Función que ejecuta los fuegos una vez tenemos dimensiones reales
   function ejecutar() {
     const w = card.getBoundingClientRect().width;
     const h = card.getBoundingClientRect().height;
 
     if (w === 0 || h === 0) {
-      // Si aún no hay tamaño, reintentamos en el siguiente frame
       fireworksFrame = requestAnimationFrame(ejecutar);
       return;
     }
@@ -303,7 +297,6 @@ function lanzarFuegos() {
       }
     }
 
-    // 6 explosiones escalonadas en posiciones repartidas por la card
     [[0.25,0.3],[0.75,0.2],[0.5,0.12],[0.15,0.5],[0.85,0.45],[0.5,0.4]]
       .forEach(([rx, ry], i) => {
         setTimeout(() => crearExplosion(w * rx, h * ry), i * 250);
@@ -357,13 +350,11 @@ function initDots() {
   scroll.addEventListener('scroll', actualizar, { passive: true });
   actualizar();
 
-  // ── Scroll con rueda de ratón (escritorio) ──
   scroll.addEventListener('wheel', e => {
     e.preventDefault();
     scroll.scrollBy({ left: e.deltaY * 2, behavior: 'smooth' });
   }, { passive: false });
 
-  // ── Drag con ratón (escritorio) ──
   let isDown = false, startX, startLeft;
 
   scroll.addEventListener('mousedown', e => {
