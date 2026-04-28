@@ -14,6 +14,8 @@
       --snow:   #f0ede8;
       --mist:   #b8c4be;
       --bg:     #f2f0ec;
+      --c4:     #3a7d5a;
+      --c2:     #e05c2a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +26,7 @@
       font-family: var(--fuente);
       background: var(--bg);
       color: var(--stone);
-      overflow: hidden; /* Evita que la página entera haga scroll */
+      overflow: hidden;
     }
 
     .app { 
@@ -34,22 +36,19 @@
       height: 100dvh; 
     }
 
-    /* ── HEADER FIJO ── */
+    /* ── HEADER ── */
     header {
       background: var(--stone);
       padding: 0 16px;
-      padding-top: env(safe-area-inset-top, 0); /* Manejo de Notch */
+      padding-top: env(safe-area-inset-top, 0);
       height: calc(54px + env(safe-area-inset-top, 0));
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
-      border-bottom: 1px solid rgba(200,169,110,0.2);
       z-index: 1000;
-      position: relative;
     }
 
-    .header-left { display: flex; align-items: center; gap: 8px; }
     .header-title { font-size: 1.1rem; font-weight: 800; color: var(--snow); }
     .header-title span { color: var(--peak); }
 
@@ -63,163 +62,323 @@
       font-size: 0.78rem;
       font-weight: 700;
       text-decoration: none;
-      transition: background 0.2s;
     }
-    .btn-back:active { background: var(--peak); color: var(--stone); }
 
-    /* ── ZONA DE CARDS ── */
+    /* ── CARDS SCROLL ── */
     .cards-scroll {
       flex: 1;
       overflow-x: auto;
-      overflow-y: hidden;
       display: flex;
       gap: 14px;
       padding: 16px;
       scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      align-items: stretch;
     }
     .cards-scroll::-webkit-scrollbar { display: none; }
 
     .stat-card {
       flex-shrink: 0;
       width: calc(100vw - 48px);
-      max-width: 360px;
+      max-width: 380px;
       background: white;
       border-radius: 22px;
-      padding: 20px 18px 16px;
+      padding: 20px 18px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       scroll-snap-align: center;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      height: 100%; /* Forzamos altura para que el flex interno funcione */
     }
 
-    /* ── CABECERAS Y GRÁFICOS ── */
-    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; flex-shrink: 0; }
-    .card-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .card-title { font-size: 1.05rem; font-weight: 800; color: var(--stone); line-height: 1.2; flex: 1; }
-    .card-summary { display: flex; align-items: baseline; gap: 6px; flex-shrink: 0; }
-    .summary-value { font-size: 2.2rem; font-weight: 900; line-height: 1; }
-    .summary-unit  { font-size: 0.8rem; font-weight: 600; color: #aaa; }
-    .chart-wrap { flex: 1; position: relative; min-height: 120px; }
+    /* ══════════════════════════════════════════
+       CARD 1 — CLASIFICACIÓN (estilo LaLiga)
+    ══════════════════════════════════════════ */
 
-    /* ── COLORES ── */
-    .c1 .card-icon { background: rgba(240,165,0,0.1); }
-    .c2 .summary-value { color: #e05c2a; } .c2 .card-icon { background: rgba(224,92,42,0.1); }
-    .c3 .summary-value { color: #1a7fc1; } .c3 .card-icon { background: rgba(26,127,193,0.1); }
-    .c4 .summary-value { color: #3a7d5a; } .c4 .card-icon { background: rgba(58,125,90,0.1); }
-    .c5 .summary-value { color: #c8a96e; } .c5 .card-icon { background: rgba(200,169,110,0.12); }
+    #card1 {
+      padding: 18px 0 0 0;
+      overflow: hidden;
+    }
 
-    /* ── PASTILLAS MEDALLERO ── */
-    .medallero-pill {
-      background: white;
-      border-radius: 22px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      padding: 14px 16px;
+    /* Cabecera de la card */
+    .clas-top {
+      padding: 0 16px 12px 16px;
+    }
+
+    .clas-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--stone);
+      margin-bottom: 10px;
+    }
+
+    /* Filtro temporada estilo LaLiga */
+    .clas-filters {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      padding: 8px 12px;
+    }
+
+    .filter-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .filter-select-wrap {
       display: flex;
       flex-direction: column;
     }
 
-    .podium-temporada { text-align: center; font-size: 0.7rem; font-weight: 800; color: #aaa; text-transform: uppercase; margin-bottom: 4px; }
-    .podium-stage { display: flex; align-items: flex-end; justify-content: center; gap: 6px; padding-bottom: 4px; }
-    .podium-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-    .podium-medal { font-size: 1.5rem; }
-    .podium-name { font-size: 0.75rem; font-weight: 800; text-align: center; line-height: 1.1; }
-    .podium-count { font-size: 0.7rem; font-weight: 700; margin-bottom: 2px; }
-    .podium-bar { width: 100%; border-radius: 5px 5px 2px 2px; border: 2px solid; }
-
-    .diploma-section, .resto-section { display: flex; flex-direction: column; gap: 4px; }
-    .diploma-label, .resto-label { font-size: 0.6rem; font-weight: 800; color: #ccc; text-transform: uppercase; margin-bottom: 2px; }
-    .diploma-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #faf9f7; border-radius: 10px; }
-    .diploma-pos { font-size: 0.8rem; font-weight: 900; color: #ddd; width: 18px; }
-    .diploma-name { flex: 1; font-size: 0.85rem; font-weight: 700; }
-    .diploma-n { font-size: 0.8rem; font-weight: 700; color: #999; }
-    .resto-row { display: flex; align-items: center; gap: 8px; padding: 4px 10px; }
-    .resto-pos { font-size: 0.75rem; font-weight: 800; color: #eee; width: 18px; }
-    .resto-name { flex: 1; font-size: 0.8rem; color: #888; font-weight: 600; }
-    .resto-n { font-size: 0.75rem; color: #ccc; font-weight: 700; }
-
-    .podium-chips-wrap { overflow-x: auto; scrollbar-width: none; }
-    #podium-chips { display: flex; gap: 6px; width: max-content; }
-    .pod-chip {
-      padding: 5px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700;
-      background: #f0ede8; color: #888; border: 1px solid #e0dbd3; white-space: nowrap;
+    .filter-select-wrap .filter-label {
+      margin-bottom: 1px;
     }
-    .pod-chip.active { background: var(--stone); color: var(--peak); border-color: var(--stone); }
 
-    /* ── DOTS ── */
-    .dots {
-      display: flex; justify-content: center; gap: 6px;
-      padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0));
+    .clas-filters select {
+      border: none;
+      background: transparent;
+      font-family: var(--fuente);
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--stone);
+      cursor: pointer;
+      outline: none;
+      padding: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .clas-filters select option {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--stone);
+      background: white;
+    }
+
+    .select-arrow {
+      font-size: 0.6rem;
+      color: #aaa;
+      margin-left: 2px;
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 28px;
+      background: #ddd;
+      margin: 0 2px;
+    }
+
+    /* Cabecera de la tabla */
+    /* Columnas: banda | # | Nombre | Rts | Km | Desn | Últimas5 */
+    .clas-thead,
+    .clas-row {
+      display: grid;
+      grid-template-columns: 5px 20px 1fr 24px 38px 38px 66px;
+      align-items: center;
+      gap: 0;
+    }
+
+    .clas-thead {
+      padding: 6px 8px 6px 0;
+      border-bottom: 1.5px solid #eee;
+    }
+
+    .clas-thead-cell {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #aaa;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .clas-thead-cell.left { text-align: left; padding-left: 6px; }
+    .clas-thead-cell.pts  { color: #666; font-weight: 700; font-size: 0.65rem; }
+
+    /* Cuerpo scrollable */
+    .clas-body {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .clas-body::-webkit-scrollbar { display: none; }
+
+    /* Fila de senderista */
+    .clas-row {
+      border-bottom: 1px solid #f4f4f4;
+      min-height: 40px;
+      transition: background 0.15s;
+      padding-right: 8px;
+    }
+
+    .clas-row:hover { background: #fafafa; }
+
+    /* Banda de color izquierda */
+    .clas-banda {
+      width: 5px;
+      height: 100%;
+      min-height: 42px;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .clas-banda.podium { background: var(--c4); }
+    .clas-banda.none   { background: transparent; }
+
+    /* Posición */
+    .clas-pos {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #bbb;
+      text-align: center;
+    }
+
+    /* Nombre */
+    .clas-nombre {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--stone);
+      padding-left: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Estadísticas numéricas */
+    .clas-stat {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+      text-align: center;
+    }
+
+    .clas-stat.pts-col {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    /* Últimas 5 rutas */
+    .clas-ultimas {
+      display: flex;
+      gap: 1px;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2px;
+    }
+
+    .ult-icon {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
     }
-    .dot { height: 6px; width: 6px; border-radius: 3px; background: #ddd; transition: all 0.2s; }
 
-    #loader { position: fixed; inset: 0; z-index: 2000; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; transition: opacity 0.3s; }
+    .ult-icon.si {
+      background: var(--c4);
+    }
+
+    .ult-icon.no {
+      background: var(--c2);
+    }
+
+    .ult-icon svg {
+      width: 10px;
+      height: 10px;
+      stroke: white;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── OTROS ELEMENTOS ── */
+    .card-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .card-title { font-weight: 800; font-size: 1rem; }
+    .summary-value { font-size: 2rem; font-weight: 900; }
+    .summary-unit { font-size: 0.8rem; color: #aaa; margin-left: 5px; }
+    .chart-wrap { flex: 1; min-height: 150px; }
+    
+    .dots { display: flex; justify-content: center; gap: 6px; padding: 15px; }
+    .dot { height: 6px; width: 6px; border-radius: 3px; background: #ddd; transition: 0.2s; }
+
+    #loader { position: fixed; inset: 0; background: var(--bg); z-index: 2000; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
     #loader.oculto { opacity: 0; pointer-events: none; }
-    .loader-spinner { width: 30px; height: 30px; border: 3px solid #ddd; border-top-color: var(--peak); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .spinner { width: 30px; height: 30px; border: 3px solid #ddd; border-top-color: var(--peak); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="loader-spinner"></div>
-</div>
+<div id="loader"><div class="spinner"></div></div>
 
 <div class="app">
   <header>
-    <div class="header-left">
-      <span style="font-size:18px">📊</span>
-      <span class="header-title">Esta<span>dísticas</span></span>
-    </div>
+    <div class="header-title">Esta<span>dísticas</span></div>
     <a href="index.html" class="btn-back">← Volver</a>
   </header>
 
   <div class="cards-scroll" id="cards-scroll">
-    <div class="stat-card c1" id="card-medallero" style="background:transparent; box-shadow:none; padding:0; gap:12px;">
-      <div class="medallero-pill" style="position:relative; flex-shrink:0;">
-        <canvas id="fireworks-canvas" style="position:absolute; inset:0; pointer-events:none; z-index:10;"></canvas>
-        <div class="card-header" style="position:relative; z-index:1;">
-          <div class="card-title">Medallero</div>
-          <div class="card-icon">🏆</div>
+
+    <!-- ══ CARD 1: CLASIFICACIÓN ══ -->
+    <div class="stat-card" id="card1">
+
+      <div class="clas-top">
+        <div class="clas-title">Clasificación</div>
+        <div class="clas-filters">
+          <div class="filter-select-wrap">
+            <span class="filter-label">Temporada</span>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <select id="temporada-select"></select>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
         </div>
-        <div id="podium-top" style="position:relative; z-index:1;"></div>
       </div>
 
-      <div class="medallero-pill" style="flex:1; overflow-y:auto; -webkit-overflow-scrolling: touch;">
-        <div id="podium-rest"></div>
+      <!-- Cabecera columnas -->
+      <div class="clas-thead">
+        <div></div>
+        <div class="clas-thead-cell">#</div>
+        <div class="clas-thead-cell left">Senderista</div>
+        <div class="clas-thead-cell">Rts</div>
+        <div class="clas-thead-cell">Km</div>
+        <div class="clas-thead-cell ">Des</div>
+        <div class="clas-thead-cell">Últimas 5</div>
       </div>
 
-      <div class="medallero-pill" style="flex-shrink:0; padding: 10px 14px;">
-        <div class="podium-chips-wrap"><div id="podium-chips"></div></div>
-      </div>
+      <!-- Filas -->
+      <div class="clas-body" id="ranking-body"></div>
+
     </div>
+    <!-- FIN CARD 1 -->
 
     <div class="stat-card c2">
-      <div class="card-header"><div class="card-title">Rutas por temporada</div><div class="card-icon">🥾</div></div>
-      <div class="card-summary"><span class="summary-value" id="sum1">—</span><span class="summary-unit">rutas totales</span></div>
+      <div class="card-header"><div class="card-title">Rutas</div><div>🥾</div></div>
+      <div><span class="summary-value" id="sum1">-</span><span class="summary-unit">totales</span></div>
       <div class="chart-wrap"><canvas id="chart1"></canvas></div>
     </div>
 
     <div class="stat-card c3">
-      <div class="card-header"><div class="card-title">Kilómetros por temporada</div><div class="card-icon">📏</div></div>
-      <div class="card-summary"><span class="summary-value" id="sum2">—</span><span class="summary-unit">km totales</span></div>
+      <div class="card-header"><div class="card-title">Kilómetros</div><div>📏</div></div>
+      <div><span class="summary-value" id="sum2">-</span><span class="summary-unit">km acumulados</span></div>
       <div class="chart-wrap"><canvas id="chart2"></canvas></div>
     </div>
 
     <div class="stat-card c4">
-      <div class="card-header"><div class="card-title">Media participantes</div><div class="card-icon">👥</div></div>
-      <div class="card-summary"><span class="summary-value" id="sum3">—</span><span class="summary-unit">media / ruta</span></div>
+      <div class="card-header"><div class="card-title">Participación</div><div>👥</div></div>
+      <div><span class="summary-value" id="sum3">-</span><span class="summary-unit">media senderistas</span></div>
       <div class="chart-wrap"><canvas id="chart3"></canvas></div>
     </div>
 
     <div class="stat-card c5">
-      <div class="card-header"><div class="card-title">Desnivel acumulado</div><div class="card-icon">⛰️</div></div>
-      <div class="card-summary"><span class="summary-value" id="sum4">—</span><span class="summary-unit">m totales</span></div>
+      <div class="card-header"><div class="card-title">Desnivel</div><div>⛰️</div></div>
+      <div><span class="summary-value" id="sum4">-</span><span class="summary-unit">metros totales</span></div>
       <div class="chart-wrap"><canvas id="chart4"></canvas></div>
     </div>
   </div>
