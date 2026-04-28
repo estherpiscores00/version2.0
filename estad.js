@@ -49,6 +49,7 @@ function abreviarNombre(nombre) {
     const partes = nombre.trim().split(/\s+/);
     if (partes.length <= 1) return nombre;
     if (partes[0].includes('.')) return nombre;  // ya viene abreviado
+    if (partes[1].includes('.')) return nombre;  // ya viene abreviado
     return partes[0][0].toUpperCase() + '. ' + partes.slice(1).join(' ');
 }
 
