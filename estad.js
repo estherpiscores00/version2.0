@@ -145,44 +145,124 @@ function calcularStatsGlobales(rutas) {
 
 function renderGraficos({ temporadas, datos, totalRutas }) {
     const labels = temporadas;
-    const commonOpts = (grace) => ({
+
+    // Plugin de data labels inline (sin dependencia externa)
+    const datalabelsPlugin = {
+        id: 'customDatalabels',
+        afterDatasetsDraw(chart) {
+            const { ctx, data, chartArea } = chart;
+            chart.data.datasets.forEach((dataset, dsIdx) => {
+                const meta = chart.getDatasetMeta(dsIdx);
+                if (meta.hidden) return;
+                meta.data.forEach((element, index) => {
+                    const value = dataset.data[index];
+                    if (value == null) return;
+                    ctx.save();
+                    ctx.font = `700 9px ${FONT}`;
+                    ctx.fillStyle = '#555';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    const x = element.x;
+                    const y = element.y - 4;
+                    // Solo dibujar si el label cabe dentro del chartArea
+                    if (y > chartArea.top) {
+                        ctx.fillText(value, x, y);
+                    }
+                    ctx.restore();
+                });
+            });
+        }
+    };
+
+    const commonOpts = (grace, color) => ({
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
-        scales: { 
-            x: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' } } },
+        scales: {
+            x: { grid: { display: false }, ticks: { font: { family: FONT, size: 10, weight: '700' }, color: '#888' } },
             y: { display: false, grace }
-        }
+        },
+        layout: { padding: { top: 14 } }
     });
 
-    document.getElementById('sum1').textContent = totalRutas;
-    new Chart(document.getElementById('chart1'), {
-        type: 'bar',
-        data: { labels, datasets: [{ data: labels.map(t => datos[t].rutas), backgroundColor: '#e05c2a33', borderColor: '#e05c2a', borderWidth: 2, borderRadius: 5 }]},
-        options: commonOpts('10%')
-    });
-
-    const totalKm = labels.reduce((acc, t) => acc + datos[t].km, 0);
-    document.getElementById('sum2').textContent = Math.round(totalKm).toLocaleString();
-    new Chart(document.getElementById('chart2'), {
-        type: 'line',
-        data: { labels, datasets: [{ data: labels.map(t => Math.round(datos[t].km)), borderColor: '#1a7fc1', tension: 0.4, fill: true, backgroundColor: '#1a7fc111' }]},
-        options: commonOpts('15%')
-    });
-
+    // ── CARD 2: PARTICIPACIÓN (media por ruta, por temporada) ──
     const mediaGral = (labels.reduce((acc, t) => acc + datos[t].parts, 0) / totalRutas).toFixed(1);
     document.getElementById('sum3').textContent = mediaGral;
     new Chart(document.getElementById('chart3'), {
         type: 'bar',
-        data: { labels, datasets: [{ data: labels.map(t => (datos[t].parts / datos[t].rutas).toFixed(1)), backgroundColor: '#3a7d5a33', borderColor: '#3a7d5a', borderWidth: 2, borderRadius: 5 }]},
-        options: commonOpts('10%')
+        data: {
+            labels,
+            datasets: [{
+                data: labels.map(t => parseFloat((datos[t].parts / datos[t].rutas).toFixed(1))),
+                backgroundColor: '#3a7d5a33',
+                borderColor: '#3a7d5a',
+                borderWidth: 2,
+                borderRadius: 5
+            }]
+        },
+        options: commonOpts('10%', '#3a7d5a'),
+        plugins: [datalabelsPlugin]
     });
 
+    // ── CARD 3: KILÓMETROS ──
+    const totalKm = labels.reduce((acc, t) => acc + datos[t].km, 0);
+    document.getElementById('sum2').textContent = Math.round(totalKm).toLocaleString();
+    new Chart(document.getElementById('chart2'), {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                data: labels.map(t => Math.round(datos[t].km)),
+                borderColor: '#1a7fc1',
+                tension: 0.4,
+                fill: true,
+                backgroundColor: '#1a7fc111',
+                pointBackgroundColor: '#1a7fc1',
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: commonOpts('15%', '#1a7fc1'),
+        plugins: [datalabelsPlugin]
+    });
+
+    // ── CARD 4: RUTAS ──
+    document.getElementById('sum1').textContent = totalRutas;
+    new Chart(document.getElementById('chart1'), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                data: labels.map(t => datos[t].rutas),
+                backgroundColor: '#e05c2a33',
+                borderColor: '#e05c2a',
+                borderWidth: 2,
+                borderRadius: 5
+            }]
+        },
+        options: commonOpts('10%', '#e05c2a'),
+        plugins: [datalabelsPlugin]
+    });
+
+    // ── CARD 5: DESNIVEL ──
     const totalDesn = labels.reduce((acc, t) => acc + datos[t].desn, 0);
     document.getElementById('sum4').textContent = Math.round(totalDesn).toLocaleString();
     new Chart(document.getElementById('chart4'), {
         type: 'line',
-        data: { labels, datasets: [{ data: labels.map(t => Math.round(datos[t].desn)), borderColor: '#c8a96e', tension: 0.4, fill: true, backgroundColor: '#c8a96e11' }]},
-        options: commonOpts('15%')
+        data: {
+            labels,
+            datasets: [{
+                data: labels.map(t => Math.round(datos[t].desn)),
+                borderColor: '#c8a96e',
+                tension: 0.4,
+                fill: true,
+                backgroundColor: '#c8a96e11',
+                pointBackgroundColor: '#c8a96e',
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: commonOpts('15%', '#c8a96e'),
+        plugins: [datalabelsPlugin]
     });
 }
 

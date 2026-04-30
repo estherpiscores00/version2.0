@@ -165,7 +165,11 @@
         "elev": 2265.0,
         "senderistas": [
           "Carlos Mateo",
-          "Agustín"
+          "Agustín",
+          "Nacho Iglesias",
+          "Nacho Arribas",
+          "María José",
+          "Tino"
         ]
       }
     },
@@ -223,7 +227,11 @@
         "elev": 2227.0,
         "senderistas": [
           "Carlos Mateo",
-          "Agustín"
+          "Agustín",
+          "Nacho Iglesias",
+          "Nacho Arribas",
+          "María José",
+          "Tino"
         ]
       }
     },
@@ -692,13 +700,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -3.98261,
-          40.65456
+          -4.0966071,
+          40.7653214
         ]
       },
       "properties": {
         "id_pico": 35,
-        "name_pico": "Peña del Águila",
+        "name_pico": "Peña el Águila",
         "name_sierra": "Sistema Central (Sierra de Guadarrama)",
         "elev": 2004.0,
         "senderistas": [
