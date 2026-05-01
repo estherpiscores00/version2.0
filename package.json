@@ -1,0 +1,20 @@
+{
+  "name": "version2-0",
+  "version": "1.0.0",
+  "description": "Senderistas - Comunidad de Madrid",
+  "private": true,
+  "scripts": {
+    "dev": "npx http-server -p 3000",
+    "start": "npx http-server -p 3000"
+  },
+  "keywords": [
+    "hiking",
+    "senderismo",
+    "madrid"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
