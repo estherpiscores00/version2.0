@@ -90,7 +90,7 @@ function crearMarcador(feature, latlng) {
     );
 
     return L.circleMarker(latlng, {
-        radius: 8,
+        radius: 6,
         fillColor: color,
         color: '#fff',
         weight: 2,
@@ -123,7 +123,7 @@ function asignarEventosPunto(feature, layer) {
 
     layer.on('mouseout', function () {
         // Restauramos el color original calculado, no un hardcode
-        this.setStyle({ fillColor: colorOriginal, radius: 8 });
+        this.setStyle({ fillColor: colorOriginal, radius: 6 });
     });
 }
 
